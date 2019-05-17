@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "804363752095",
+    "firebase_url": "https://memewallet-6aa7d.firebaseio.com",
+    "project_id": "memewallet-6aa7d",
+    "storage_bucket": "memewallet-6aa7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804363752095:android:b6a5c1c7bc373bf6",
+        "android_client_info": {
+          "package_name": "com.example.meme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804363752095-3l6nae626rqa27fplg8qk76rcd2pa5am.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1cW3wbG0g_6yt5tcZaAhv0xkDRZt_C1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804363752095-3l6nae626rqa27fplg8qk76rcd2pa5am.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
