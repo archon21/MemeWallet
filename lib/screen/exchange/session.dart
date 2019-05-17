@@ -36,13 +36,15 @@ class SessionState extends State<Session> {
     final CollectionReference sessions =
         Firestore.instance.collection('sessions');
     final path = await storageTaskSnapshot.ref.getDownloadURL();
-    sessions.document(widget.sessionId).updateData({'hostimage': path});
+   var updateData = widget.isHost ? {'guestimage': path} : {'hostimage': path};
+    sessions.document(widget.sessionId).updateData(updateData);
   }
 
     Future _handleRemoveImage() async {
+    var updateData = widget.isHost ? {'guestimage': ''} : {'hostimage': ''};
     final CollectionReference sessions =
         Firestore.instance.collection('sessions');
-    sessions.document(widget.sessionId).updateData({'hostimage': ''});
+    sessions.document(widget.sessionId).updateData(updateData);
   }
 
   @override
@@ -66,8 +68,9 @@ class SessionState extends State<Session> {
                 return const Text('Loading');
               else {
                 try {
+                  String  image = widget.isHost ?   snapshot.data['guestimage'] :snapshot.data['hostimage'];
                   return Column(children: <Widget>[
-                    Image.network(snapshot.data['hostimage']),
+                    Image.network(image),
                     RaisedButton(child:Text('Remove Image'), onPressed: _handleRemoveImage,)
                   ]);
                 } catch (err) {

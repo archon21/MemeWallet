@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   String session;
-  dynamic inSession = false;
+
   dynamic searchingSessions = false;
 
   Future<void> _signOut(BuildContext context) async {
@@ -38,24 +38,21 @@ class HomePageState extends State<HomePage> {
         Firestore.instance.collection('sessions');
     await sessions
         .document(id)
-        .setData({'id': id, 'hostid': user, 'name': 'Ryan', 'hostimage': ''});
+        .setData({'id': id, 'hostid': user, 'name': 'Ryan', 'hostimage': '', 'guestimage': ''});
     var route = new MaterialPageRoute(
         builder: (BuildContext context) => new Session( sessionId: id, isHost: true));
     Navigator.of(context).push(route);
   }
 
   _selectSession(session) {
-    setState(() {
-      inSession = true;
-      session = session['name'];
-    });
-    print(session['name']);
-    print(inSession);
+    var route = new MaterialPageRoute(
+        builder: (BuildContext context) => new Session( sessionId: session['id'], isHost: false));
+    Navigator.of(context).push(route);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!inSession && !searchingSessions) {
+    if ( !searchingSessions) {
       return new Scaffold(
           appBar: AppBar(
             title: Text('Welcome'),
@@ -81,7 +78,7 @@ class HomePageState extends State<HomePage> {
                   });
                 })
           ])));
-    } else if (!inSession && searchingSessions) {
+    } else {
       return new Scaffold(
         body: new StreamBuilder(
           stream: Firestore.instance.collection('sessions').snapshots(),
@@ -106,11 +103,11 @@ class HomePageState extends State<HomePage> {
       ),
     ));
   }
-  
+
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      
+
       items: [
         _buildItem(icon: Icons.adjust, tabItem: 'Home'),
         _buildItem(icon: Icons.clear_all, tabItem: 'Exchange'),
